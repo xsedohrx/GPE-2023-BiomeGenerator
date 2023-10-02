@@ -33,7 +33,7 @@ public class BiomeDesigner : EditorWindow
 
     private void DrawBiomeProperties()
     {
-        //        GUILayout.Label(, GUILayout.Width(200), GUILayout.Height(20));
+        //GUILayout.Label(, GUILayout.Width(200), GUILayout.Height(20));
         GUILayout.TextArea("Welcome to Biome Designer" + System.Environment.NewLine + "Insert a Biome Scriptable Object to start editing the biome properties");
         biomeSO = (BiomeScriptableObject)EditorGUILayout.ObjectField("Biome SO", biomeSO, typeof(BiomeScriptableObject), false);
         GUILayout.Label("X:", GUILayout.Width(200), GUILayout.Height(20));
@@ -52,6 +52,7 @@ public class BiomeDesigner : EditorWindow
         if (GUILayout.Button("Generate Biome"))
         {
             GameObject biome = Instantiate(biomeSO.biomePrefab.gameObject);
+            biome.AddComponent<MarchingCube>();
             biomes.Add(biome);
         }
 

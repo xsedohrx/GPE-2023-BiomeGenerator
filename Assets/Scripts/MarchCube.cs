@@ -1,31 +1,99 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 [RequireComponent(typeof(MeshFilter)), RequireComponent(typeof(MeshRenderer))]
 public class MarchingCube : MonoBehaviour
 {
+    MeshFilter meshFilter;
+    
+    //Density of the terrain
+    float terrainSurface = 0.5f;
+
+    //Amount of cubes to march through
+    int width = 32;
+    int height = 8;
+    float[,,] terrainMap;
 
     List<Vector3> vertices = new List<Vector3>();
     List<int> triangles = new List<int>();
-    MeshFilter meshFilter;
-    int _configIndex = -1;
 
     private void Start()
     {
         meshFilter = GetComponent<MeshFilter>();
+        terrainMap = new float[width + 1, height + 1, width + 1];
+
+        PopulateTerrainMap();
+        CreateMeshData();
     }
 
-    private void Update()
+    void CreateMeshData()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        ClearMeshdata();
+
+        for (int x = 0; x < width; x++)
         {
-            _configIndex++;
-            ClearMeshdata();
-            MarchCube(Vector3.zero, _configIndex);
-            BuildMesh();
+            for (int y = 0; y < height; y++)
+            {
+                for (int z = 0; z < width; z++)
+                {
+                    float[] cube = new float[8];
+                    for (int i = 0; i < 8; i++) {
+                        Vector3Int corner = new Vector3Int(x, y, z) + CornerTable[i];
+                        cube[i] = terrainMap[corner.x, corner.y, corner.z];
+                    }
+                    MarchCube(new Vector3(x, y, z), cube);
+                }
+            }
         }
+        BuildMesh();
+    }
+
+    void PopulateTerrainMap()
+    {
+        for (int x = 0; x < width + 1; x++)
+        {
+            for (int z = 0; z < width + 1; z++)
+            {
+                for (int y = 0; y < height + 1; y++)
+                {
+                    float thisHeight = (float)height * Mathf.PerlinNoise((float)x / 16f * 1.5f + 0.001f, (float)z / 16f * 1.5f + 0.001f);
+                    float point = 0;
+
+                    if (x == 4 && z == 5)
+                        point = 0;                    
+                    else if (y <= thisHeight - 0.05f)
+                        point = 0f;
+                    else if (y > thisHeight + 0.5f)
+                        point = 1f;
+                    else if (y > thisHeight)
+                        point = (float)y - thisHeight;
+                    else
+                        point = thisHeight - (float)y;
+
+                    terrainMap[x, y, z] = point;
+
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Configure the byte value from the cube float and pass it into the configuration index
+    /// </summary>
+    /// <param name="cube"></param>
+    /// <returns></returns>
+    int GetCubeConfiguration(float[] cube)
+    {
+        int configurationIndex = 0;
+        for (int i = 0; i < 8; i++)
+        {
+            if (cube[i] > terrainSurface)
+                configurationIndex |= 1 << i;
+        }
+        return configurationIndex;
     }
 
     /// <summary>
@@ -34,7 +102,9 @@ public class MarchingCube : MonoBehaviour
     /// </summary>
     /// <param name="position"></param>
     /// <param name="configIndex"></param>
-    void MarchCube(Vector3 position, int configIndex) {
+    void MarchCube(Vector3 position, float[] cube)
+    {
+        int configIndex = GetCubeConfiguration(cube);
 
         if (configIndex == 0 || configIndex == 255)
             return;
@@ -48,7 +118,7 @@ public class MarchingCube : MonoBehaviour
                 if (indice == -1)
                     return;
 
-                Vector3 vert1 = position + EdgeTable[indice, 0];   
+                Vector3 vert1 = position + EdgeTable[indice, 0];
                 Vector3 vert2 = position + EdgeTable[indice, 1];
                 Vector3 vertPosition = (vert1 + vert2) / 2;
 
@@ -63,14 +133,16 @@ public class MarchingCube : MonoBehaviour
     /// <summary>
     /// Clear the mesh data for reuse
     /// </summary>
-    void ClearMeshdata() {
+    void ClearMeshdata()
+    {
 
         vertices.Clear();
         triangles.Clear();
 
     }
 
-    void BuildMesh(){
+    void BuildMesh()
+    {
         Mesh mesh = new Mesh();
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
@@ -80,7 +152,6 @@ public class MarchingCube : MonoBehaviour
     }
 
     #region Table
-
 
     /// <summary>
     /// Corners or the cube
@@ -100,7 +171,6 @@ public class MarchingCube : MonoBehaviour
 
     /// <summary>
     /// Each one represents an edge of the cube
-    /// 
     /// </summary>
     Vector3[,] EdgeTable = new Vector3[12, 2] {
 
