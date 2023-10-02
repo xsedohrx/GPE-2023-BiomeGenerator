@@ -60,20 +60,8 @@ public class MarchingCube : MonoBehaviour
                 for (int y = 0; y < height + 1; y++)
                 {
                     float thisHeight = (float)height * Mathf.PerlinNoise((float)x / 16f * 1.5f + 0.001f, (float)z / 16f * 1.5f + 0.001f);
-                    float point = 0;
-
-                    if (x == 4 && z == 5)
-                        point = 0;                    
-                    else if (y <= thisHeight - 0.05f)
-                        point = 0f;
-                    else if (y > thisHeight + 0.5f)
-                        point = 1f;
-                    else if (y > thisHeight)
-                        point = (float)y - thisHeight;
-                    else
-                        point = thisHeight - (float)y;
-
-                    terrainMap[x, y, z] = point;
+                    
+                    terrainMap[x, y, z] = (float)y - thisHeight;
 
                 }
             }
