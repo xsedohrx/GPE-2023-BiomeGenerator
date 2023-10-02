@@ -106,8 +106,8 @@ public class MarchingCube : MonoBehaviour
                 if (indice == -1)
                     return;
 
-                Vector3 vert1 = position + EdgeTable[indice, 0];
-                Vector3 vert2 = position + EdgeTable[indice, 1];
+                Vector3 vert1 = position + CornerTable[EdgeIndexes[indice, 0]];
+                Vector3 vert2 = position + CornerTable[EdgeIndexes[indice, 1]];
                 Vector3 vertPosition = (vert1 + vert2) / 2;
 
                 vertices.Add(vertPosition);
@@ -158,23 +158,10 @@ public class MarchingCube : MonoBehaviour
     };
 
     /// <summary>
-    /// Each one represents an edge of the cube
+    /// Each one represents an edge of the cube (1 ==> positions on the cube, 2==>
     /// </summary>
-    Vector3[,] EdgeTable = new Vector3[12, 2] {
-
-        { new Vector3(0.0f, 0.0f, 0.0f), new Vector3(1.0f, 0.0f, 0.0f) },
-        { new Vector3(1.0f, 0.0f, 0.0f), new Vector3(1.0f, 1.0f, 0.0f) },
-        { new Vector3(0.0f, 1.0f, 0.0f), new Vector3(1.0f, 1.0f, 0.0f) },
-        { new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 1.0f, 0.0f) },
-        { new Vector3(0.0f, 0.0f, 1.0f), new Vector3(1.0f, 0.0f, 1.0f) },
-        { new Vector3(1.0f, 0.0f, 1.0f), new Vector3(1.0f, 1.0f, 1.0f) },
-        { new Vector3(0.0f, 1.0f, 1.0f), new Vector3(1.0f, 1.0f, 1.0f) },
-        { new Vector3(0.0f, 0.0f, 1.0f), new Vector3(0.0f, 1.0f, 1.0f) },
-        { new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 1.0f) },
-        { new Vector3(1.0f, 0.0f, 0.0f), new Vector3(1.0f, 0.0f, 1.0f) },
-        { new Vector3(1.0f, 1.0f, 0.0f), new Vector3(1.0f, 1.0f, 1.0f) },
-        { new Vector3(0.0f, 1.0f, 0.0f), new Vector3(0.0f, 1.0f, 1.0f) }
-
+    int[,] EdgeIndexes = new int[12, 2] {
+        {0, 1}, {1, 2}, {3, 2}, {0, 3}, {4, 5}, {5, 6}, {7, 6}, {4, 7}, {0, 4}, {1, 5}, {2, 6} ,{3, 7}
     };
 
     /// <summary>
