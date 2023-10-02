@@ -32,19 +32,13 @@ public class MarchingCube : MonoBehaviour
     void CreateMeshData()
     {
         ClearMeshdata();
-
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
                 for (int z = 0; z < width; z++)
-                {
-                    float[] cube = new float[8];
-                    for (int i = 0; i < 8; i++) {
-                        Vector3Int corner = new Vector3Int(x, y, z) + CornerTable[i];
-                        cube[i] = terrainMap[corner.x, corner.y, corner.z];
-                    }
-                    MarchCube(new Vector3(x, y, z), cube);
+                {                    
+                    MarchCube(new Vector3Int(x, y, z));
                 }
             }
         }
@@ -90,8 +84,14 @@ public class MarchingCube : MonoBehaviour
     /// </summary>
     /// <param name="position"></param>
     /// <param name="configIndex"></param>
-    void MarchCube(Vector3 position, float[] cube)
+    void MarchCube(Vector3Int position)
     {
+        float[] cube = new float[8];
+        for (int i = 0; i < 8; i++)
+        {
+            cube[i] = SampleTerrain(position + CornerTable[i]);
+        }
+
         int configIndex = GetCubeConfiguration(cube);
 
         if (configIndex == 0 || configIndex == 255)
@@ -128,6 +128,10 @@ public class MarchingCube : MonoBehaviour
         triangles.Clear();
 
     }
+
+    float SampleTerrain(Vector3Int point) {
+        return terrainMap[point.x, point.y, point.z];
+    } 
 
     void BuildMesh()
     {
