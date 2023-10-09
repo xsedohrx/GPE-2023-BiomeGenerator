@@ -52,7 +52,7 @@ public class BiomeDesigner : EditorWindow
         if (GUILayout.Button("Generate Biome"))
         {
             GameObject biome = Instantiate(biomeSO.biomePrefab.gameObject);
-            biome.AddComponent<MarchingCube>();
+            //biome.AddComponent<MarchingCube>();
             biomes.Add(biome);
         }
 

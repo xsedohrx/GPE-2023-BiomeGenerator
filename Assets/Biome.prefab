@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6317203887996859653}
   - component: {fileID: -218434472893275931}
   - component: {fileID: 1062770218324090937}
+  - component: {fileID: 5059223931538353961}
   m_Layer: 0
   m_Name: Biome
   m_TagString: Untagged
@@ -97,3 +98,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5059223931538353961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530963935917214862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f9ced7a6f351ca4baadf110375e0934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothTerrain: 0
+  flatShaded: 0

@@ -7,8 +7,11 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter)), RequireComponent(typeof(MeshRenderer))]
 public class MarchingCube : MonoBehaviour
 {
+    //Marching Properties
+    public bool smoothTerrain;
+    public bool flatShaded;
     MeshFilter meshFilter;
-    
+
     //Density of the terrain
     float terrainSurface = 0.5f;
 
@@ -37,7 +40,7 @@ public class MarchingCube : MonoBehaviour
             for (int y = 0; y < height; y++)
             {
                 for (int z = 0; z < width; z++)
-                {                    
+                {
                     MarchCube(new Vector3Int(x, y, z));
                 }
             }
@@ -54,7 +57,7 @@ public class MarchingCube : MonoBehaviour
                 for (int y = 0; y < height + 1; y++)
                 {
                     float thisHeight = (float)height * Mathf.PerlinNoise((float)x / 16f * 1.5f + 0.001f, (float)z / 16f * 1.5f + 0.001f);
-                    
+
                     terrainMap[x, y, z] = (float)y - thisHeight;
 
                 }
@@ -106,12 +109,43 @@ public class MarchingCube : MonoBehaviour
                 if (indice == -1)
                     return;
 
+                //Get the current indice. increment triangle index through each loop
                 Vector3 vert1 = position + CornerTable[EdgeIndexes[indice, 0]];
                 Vector3 vert2 = position + CornerTable[EdgeIndexes[indice, 1]];
-                Vector3 vertPosition = (vert1 + vert2) / 2;
 
-                vertices.Add(vertPosition);
-                triangles.Add(vertices.Count - 1);
+                Vector3 vertPosition;
+
+                if (smoothTerrain)
+                {
+                    //Get the terrain values at either end of our current edge from the cube array created above
+                    float vert1Sample = cube[EdgeIndexes[indice, 0]];
+                    float vert2Sample = cube[EdgeIndexes[indice, 1]];
+                    //calculate difference betweeen the terrain values
+                    float difference = vert2Sample - vert1Sample;
+
+                    //if the difference reference = 0 the terrain passes through the middle
+                    if (difference == 0)
+                        difference = terrainSurface;
+                    else
+                        difference = (terrainSurface - vert1Sample) / difference;
+
+                    vertPosition = vert1 + ((vert2 - vert1) * difference);
+                }
+                else
+                {
+                    vertPosition = (vert1 + vert2) / 2;
+                }
+
+                if (flatShaded)
+                {
+
+                    vertices.Add(vertPosition);
+                    triangles.Add(vertices.Count - 1);
+                }
+                else
+                
+                    triangles.Add(vertForIndice(vertPosition));
+                
                 edgeIndex++;
 
             }
@@ -129,9 +163,26 @@ public class MarchingCube : MonoBehaviour
 
     }
 
-    float SampleTerrain(Vector3Int point) {
+    float SampleTerrain(Vector3Int point)
+    {
         return terrainMap[point.x, point.y, point.z];
-    } 
+    }
+
+    int vertForIndice(Vector3 vert)
+    {
+        //Loop through all the vertices currently in the verticies list
+        for (int i = 0; i < vertices.Count; i++)
+        {
+            if (vertices[i] == vert)
+            {
+                return i;
+            }
+        }
+
+        //if we dont find a match, add this vert to the list and return last index
+        vertices.Add(vert);
+        return vertices.Count - 1;
+    }
 
     void BuildMesh()
     {
