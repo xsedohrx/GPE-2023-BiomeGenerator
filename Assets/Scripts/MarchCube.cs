@@ -4,13 +4,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-[RequireComponent(typeof(MeshFilter)), RequireComponent(typeof(MeshRenderer))]
+[RequireComponent(typeof(MeshFilter)), RequireComponent(typeof(MeshRenderer)), RequireComponent(typeof(MeshCollider))]
 public class MarchingCube : MonoBehaviour
 {
+    //Marching Cube components
+    MeshFilter meshFilter;
+    MeshCollider meshCollider;
+
     //Marching Properties
     public bool smoothTerrain;
     public bool flatShaded;
-    MeshFilter meshFilter;
 
     //Density of the terrain
     float terrainSurface = 0.5f;
@@ -26,6 +29,8 @@ public class MarchingCube : MonoBehaviour
     private void Start()
     {
         meshFilter = GetComponent<MeshFilter>();
+        meshCollider = GetComponent<MeshCollider>();
+        transform.tag = "Terrain";
         terrainMap = new float[width + 1, height + 1, width + 1];
 
         PopulateTerrainMap();
@@ -191,6 +196,7 @@ public class MarchingCube : MonoBehaviour
         mesh.triangles = triangles.ToArray();
         mesh.RecalculateNormals();
         meshFilter.mesh = mesh;
+        meshCollider.sharedMesh = mesh; 
 
     }
 
