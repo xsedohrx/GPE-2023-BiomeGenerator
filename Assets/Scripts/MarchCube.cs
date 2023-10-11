@@ -21,8 +21,10 @@ public class MarchingCube : MonoBehaviour
     //Amount of cubes to march through
     int width = 32;
     int height = 8;
+
     float[,,] terrainMap;
 
+    List<Transform> spawnPositions = new List<Transform>();
     List<Vector3> vertices = new List<Vector3>();
     List<int> triangles = new List<int>();
 
