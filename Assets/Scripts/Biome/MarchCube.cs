@@ -7,6 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter)), RequireComponent(typeof(MeshRenderer)), RequireComponent(typeof(MeshCollider))]
 public class MarchingCube : MonoBehaviour
 {
+    FastNoiseLite noise = new FastNoiseLite();
+
+
     //Marching Cube components
     MeshFilter meshFilter;
     MeshCollider meshCollider;
@@ -16,7 +19,7 @@ public class MarchingCube : MonoBehaviour
     public bool flatShaded;
 
     //Density of the terrain
-    float terrainSurface = 0.5f;
+    [SerializeField] float terrainSurface = 0.5f;
 
     //Amount of cubes to march through
     int width = 32;
@@ -28,6 +31,13 @@ public class MarchingCube : MonoBehaviour
     List<Vector3> vertices = new List<Vector3>();
     List<int> triangles = new List<int>();
 
+
+    private void Awake()
+    {
+
+        noise.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
+        noise.SetFrequency(terrainSurface);
+    }
     private void Start()
     {
         meshFilter = GetComponent<MeshFilter>();
@@ -63,8 +73,12 @@ public class MarchingCube : MonoBehaviour
             {
                 for (int y = 0; y < height + 1; y++)
                 {
-                    float thisHeight = (float)height * Mathf.PerlinNoise((float)x / 16f * 1.5f + 0.001f, (float)z / 16f * 1.5f + 0.001f);
-
+                    //TODO create areas that can be used for platforms
+                    float thisHeight = (float)height * noise.GetNoise(x, z);
+                    if (y == 0)
+                    {
+                        thisHeight = 1;
+                    }
                     terrainMap[x, y, z] = (float)y - thisHeight;
 
                 }

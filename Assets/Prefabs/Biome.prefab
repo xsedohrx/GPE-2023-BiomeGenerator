@@ -111,8 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f9ced7a6f351ca4baadf110375e0934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothTerrain: 0
+  smoothTerrain: 1
   flatShaded: 0
+  terrainSurface: 0.9
 --- !u!64 &-7727111188596139576
 MeshCollider:
   m_ObjectHideFlags: 0
