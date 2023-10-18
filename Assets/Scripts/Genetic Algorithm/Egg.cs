@@ -16,7 +16,13 @@ public class Egg : MonoBehaviour
 
     private void Update()
     {
-        if (!hasHatched) { 
+        HatchingProcess();
+    }
+
+    private void HatchingProcess()
+    {
+        if (!hasHatched)
+        {
             hatchTime -= Time.deltaTime;
             if (hatchTime < 0)
             {
@@ -25,11 +31,13 @@ public class Egg : MonoBehaviour
         }
     }
 
-    void HatchFish() { }
+    void HatchFish() {
+        hasHatched = true;
+        if (hasHatched)
+        {
+            GameObject newFish = Instantiate(fishPrefab, transform.position, Quaternion.identity);
 
-    void Birth() { }
-
-    void StartBirthTimer() { 
-        
+            Destroy(gameObject);
+        }
     }
 }

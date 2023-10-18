@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class GeneticAlgorithm : MonoBehaviour
 {
-    public GameObject fishPrefab;
+    public GameObject eggPrefab;
     public Transform spawnPoint;
     public int populationSize = 10, generations = 3;
-
 
     private List<GameObject> population = new List<GameObject>();
     // Start is called before the first frame update
@@ -19,13 +18,23 @@ public class GeneticAlgorithm : MonoBehaviour
     void StartSimulation() {
         for (int i = 0; i < populationSize; i++)
         {
-            GameObject fish = Instantiate(fishPrefab, spawnPoint.position, Quaternion.identity);
+            GameObject fish = Instantiate(eggPrefab, spawnPoint.position, Quaternion.identity);
             population.Add(fish);
 
         }
 
         InvokeRepeating("NextGeneration", 5f, 5f);
     }
+
+    //BoxCollider boxCollider; 
+
+    //// Calculate random position within the Box Collider boundaries
+    //Vector3 randomPosition = new Vector3(
+    //    Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x),
+    //    Random.Range(boxCollider.bounds.min.y, boxCollider.bounds.max.y),
+    //    Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z)
+    //);
+
 
     void NextGeneration() {
         foreach (var fish in population)
@@ -45,7 +54,7 @@ public class GeneticAlgorithm : MonoBehaviour
 
         for (int i = 0; i < populationSize; i++)
         {
-            GameObject fish = Instantiate(fishPrefab, spawnPoint.position, Quaternion.identity);
+            GameObject fish = Instantiate(eggPrefab, spawnPoint.position, Quaternion.identity);
             population.Add (fish); 
 
         }

@@ -81,6 +81,7 @@ public class MarchingCube : MonoBehaviour
                     }
                     terrainMap[x, y, z] = (float)y - thisHeight;
 
+
                 }
             }
         }
