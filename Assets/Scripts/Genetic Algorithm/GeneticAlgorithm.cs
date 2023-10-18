@@ -31,6 +31,8 @@ public class GeneticAlgorithm : MonoBehaviour
         foreach (var fish in population)
         {
 
+            //TODO
+
             if (fish.GetComponent<Fish>().speed < 3)
             {
 

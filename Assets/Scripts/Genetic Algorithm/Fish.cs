@@ -12,7 +12,12 @@ public class Fish : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        genes = new Vector2(Random.Range(1f,5f), Random.Range(10f, 180f));
+        SetupProperties();
+    }
+
+    private void SetupProperties()
+    {
+        genes = new Vector2(Random.Range(1f, 5f), Random.Range(10f, 180f));
         speed = genes.x;
         rotationSpeed = genes.y;
     }
