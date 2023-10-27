@@ -18,12 +18,14 @@ public class MarchingCube : MonoBehaviour
     public bool smoothTerrain;
     public bool flatShaded;
 
+    [SerializeField] private FastNoiseLite.NoiseType _noiseType;
+
     //Density of the terrain
     [SerializeField] float terrainSurface = 0.5f;
 
     //Amount of cubes to march through
-    int width = 32;
-    int height = 8;
+    [SerializeField] int width = 32;
+    [SerializeField] int height = 8;
 
     float[,,] terrainMap;
 
@@ -34,10 +36,11 @@ public class MarchingCube : MonoBehaviour
 
     private void Awake()
     {
-
-        noise.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
         noise.SetFrequency(terrainSurface);
     }
+
+    public Material terrainMaterial;
+
     private void Start()
     {
         meshFilter = GetComponent<MeshFilter>();
@@ -47,9 +50,21 @@ public class MarchingCube : MonoBehaviour
 
         PopulateTerrainMap();
         CreateMeshData();
+        GetComponent<MeshRenderer>().material = terrainMaterial;
+
+
     }
 
-    void CreateMeshData()
+    public void Clear()
+    {
+        vertices.Clear();
+        triangles.Clear();
+        terrainMap = new float[width + 1, height + 1, width + 1];
+        meshFilter.mesh.Clear();
+        meshCollider.sharedMesh = new Mesh();
+    }
+
+    public void CreateMeshData()
     {
         ClearMeshdata();
         for (int x = 0; x < width; x++)
@@ -65,7 +80,7 @@ public class MarchingCube : MonoBehaviour
         BuildMesh();
     }
 
-    void PopulateTerrainMap()
+    public void PopulateTerrainMap()
     {
         for (int x = 0; x < width + 1; x++)
         {
@@ -74,7 +89,7 @@ public class MarchingCube : MonoBehaviour
                 for (int y = 0; y < height + 1; y++)
                 {
                     //TODO create areas that can be used for platforms
-                    float thisHeight = (float)height * noise.GetNoise(x, z);
+                    float thisHeight = (float)height * noise.GetNoise(x,y, z);
                     if (y == 0)
                     {
                         thisHeight = 1;
@@ -206,11 +221,25 @@ public class MarchingCube : MonoBehaviour
         return vertices.Count - 1;
     }
 
+    /// <summary>
+    /// Calculate the uvs of all the vertices
+    /// </summary>
+    /// <returns></returns>
+    private Vector2[] CalculateUVs() {
+        Vector2[] uvs = new Vector2[vertices.Count];
+        for (int i = 0; i < vertices.Count; i++)
+        {
+            uvs[i] = new Vector2(vertices[i].x / width, vertices[i].z / width);
+        }
+    return uvs;
+    }
+
     void BuildMesh()
     {
         Mesh mesh = new Mesh();
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
+        mesh.uv = CalculateUVs();
         mesh.RecalculateNormals();
         meshFilter.mesh = mesh;
         meshCollider.sharedMesh = mesh; 
