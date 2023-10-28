@@ -14,6 +14,7 @@ public class MarchingCube : MonoBehaviour
     MeshFilter meshFilter;
     MeshCollider meshCollider;
 
+    [Header("Terrain Properties")]
     //Marching Properties
     public bool smoothTerrain;
     public bool flatShaded;
@@ -26,6 +27,12 @@ public class MarchingCube : MonoBehaviour
     //Amount of cubes to march through
     [SerializeField] int width = 32;
     [SerializeField] int height = 8;
+
+    [Header("Biome Properties")]
+    [SerializeField] int platforms = 3;
+    [SerializeField] int platformHeight = 3;
+
+
 
     float[,,] terrainMap;
 
@@ -50,9 +57,6 @@ public class MarchingCube : MonoBehaviour
 
         PopulateTerrainMap();
         CreateMeshData();
-        GetComponent<MeshRenderer>().material = terrainMaterial;
-
-
     }
 
     public void Clear()
@@ -95,7 +99,6 @@ public class MarchingCube : MonoBehaviour
                         thisHeight = 1;
                     }
                     terrainMap[x, y, z] = (float)y - thisHeight;
-
 
                 }
             }
@@ -242,8 +245,8 @@ public class MarchingCube : MonoBehaviour
         mesh.uv = CalculateUVs();
         mesh.RecalculateNormals();
         meshFilter.mesh = mesh;
-        meshCollider.sharedMesh = mesh; 
-
+        meshCollider.sharedMesh = mesh;
+        GetComponent<MeshRenderer>().material = terrainMaterial;
     }
 
     #region Table
