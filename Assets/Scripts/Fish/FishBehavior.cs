@@ -7,37 +7,37 @@ using UnityEngine;
 /// </summary>
 public class FishBehavior : MonoBehaviour
 {
+    Fish fish;
+
     public enum BehaviorType
     {
         Swimming,
-        Turning,
         Fleeing,
         Feeding,
         Exploring,
         Death
     }
 
-    private BehaviorType currentBehavior;
-    private Transform fishTransform;
+    public BehaviorType currentBehavior;
 
     private void Start()
     {
-        fishTransform = transform;
-        // Initialize with a default behavior (e.g., Swimming)
+        fish = GetComponent<Fish>();
         SetBehavior(BehaviorType.Swimming);
     }
 
     private void Update()
     {
-        // Update the current behavior
+        HandleBehavior();
+    }
+
+    private void HandleBehavior()
+    {
+
         switch (currentBehavior)
         {
             case BehaviorType.Swimming:
                 Swim();
-                break;
-
-            case BehaviorType.Turning:
-                Turn();
                 break;
 
             case BehaviorType.Fleeing:
@@ -58,45 +58,74 @@ public class FishBehavior : MonoBehaviour
         }
     }
 
-    // Method for swimming behavior
     private void Swim()
     {
         // Implement swimming logic here
+        float swimSpeed = Mathf.Clamp(fish.currentSpeed, fish.minSpeed, fish.maxSpeed);
+        transform.Translate(transform.forward * swimSpeed * Time.deltaTime, Space.World);
+
+        // Check if it's time to turn
+        fish.timeUntilNextTurn -= Time.deltaTime;
+        if (fish.timeUntilNextTurn <= 0)
+        {
+            LerpRotateRandomly();
+            fish.timeUntilNextTurn = Random.Range(fish.minTurnInterval, fish.maxTurnInterval);
+        }
     }
 
-    // Method for turning behavior
-    private void Turn()
-    {
-        // Implement turning logic here
-    }
 
-    // Method for fleeing behavior
     private void Flee()
     {
         // Implement fleeing logic here
     }
 
-    // Method for feeding behavior
     private void Feed()
     {
         // Implement feeding logic here
     }
 
-    // Method for exploring behavior
     private void Explore()
     {
         // Implement exploring logic here
     }
 
-    // Method for death behavior
     private void Die()
     {
         // Implement death logic here
     }
 
-    // Method to set the current behavior
     public void SetBehavior(BehaviorType behaviorType)
     {
         currentBehavior = behaviorType;
     }
+
+    private void LerpRotateRandomly()
+    {
+        // Calculate the target rotation
+        Quaternion targetRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+
+        // Determine the rotation duration based on the rotation speed
+        float rotationDuration = 1f / fish.currentRotationSpeed;
+
+        // Start the rotation coroutine
+        StartCoroutine(RotateOverTime(targetRotation, rotationDuration));
+    }
+
+
+    //Coroutine used for determining when to rotate fish
+    private IEnumerator RotateOverTime(Quaternion targetRotation, float duration)
+    {
+        float elapsedTime = 0f;
+        Quaternion initialRotation = transform.rotation;
+
+        while (elapsedTime < duration)
+        {
+            transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.rotation = targetRotation;
+    }
+
 }

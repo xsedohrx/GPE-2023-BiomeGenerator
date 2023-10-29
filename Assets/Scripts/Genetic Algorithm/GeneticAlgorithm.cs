@@ -40,13 +40,13 @@ public class GeneticAlgorithm : MonoBehaviour
         foreach (var fish in population)
         {
 
-            //TODO
+            ////TODO
 
-            if (fish.GetComponent<Fish>().speed < 3)
-            {
+            //if (fish.GetComponent<Fish>().moveSpeed < 3)
+            //{
 
-                Destroy(fish);
-            }
+            //    Destroy(fish);
+            //}
 
         }
 
