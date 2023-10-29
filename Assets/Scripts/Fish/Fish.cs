@@ -11,11 +11,10 @@ public class Fish : MonoBehaviour
     public int health;
 
 
-    public FishBehavior fishBehavior; // Reference to the FishBehavior script
+    public FishBehavior fishBehavior;
 
     private void Start()
     {
-        // Initialize with the default behavior (e.g., Swimming)
         fishBehavior.SetBehavior(FishBehavior.BehaviorType.Swimming);
     }
 
