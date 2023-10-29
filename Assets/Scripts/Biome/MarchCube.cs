@@ -22,17 +22,19 @@ public class MarchingCube : MonoBehaviour
     [SerializeField] private FastNoiseLite.NoiseType _noiseType;
 
     //Density of the terrain
-    [SerializeField] float terrainSurface = 0.5f;
+    [SerializeField] private float terrainSurface = 0.5f;
 
     //Amount of cubes to march through
-    [SerializeField] int width = 32;
-    [SerializeField] int height = 8;
+    [SerializeField] private int width = 32;
+    [SerializeField] private int height = 8;
 
     [Header("Biome Properties")]
-    [SerializeField] int platforms = 3;
-    [SerializeField] int platformHeight = 3;
+    [SerializeField] private int platforms = 3;
+    [SerializeField] private int platformHeight = 3;
 
-
+    public bool is3D;
+    [SerializeField, Range(-1,1)]
+    float x, y;
 
     float[,,] terrainMap;
 
@@ -55,7 +57,7 @@ public class MarchingCube : MonoBehaviour
         transform.tag = "Terrain";
         terrainMap = new float[width + 1, height + 1, width + 1];
 
-        PopulateTerrainMap();
+        PopulateTerrainMap2D();
         CreateMeshData();
     }
 
@@ -84,7 +86,7 @@ public class MarchingCube : MonoBehaviour
         BuildMesh();
     }
 
-    public void PopulateTerrainMap()
+    public void PopulateTerrainMap2D()
     {
         for (int x = 0; x < width + 1; x++)
         {
@@ -93,7 +95,28 @@ public class MarchingCube : MonoBehaviour
                 for (int y = 0; y < height + 1; y++)
                 {
                     //TODO create areas that can be used for platforms
-                    float thisHeight = (float)height * noise.GetNoise(x,y, z);
+                    float thisHeight = (float)height * noise.GetNoise(x, z);
+                    if (y == 0)
+                    {
+                        //thisHeight = 1;
+                    }
+                    terrainMap[x, y, z] = (float)y - thisHeight;
+
+                }
+            }
+        }
+    }
+
+    public void PopulateTerrainMap3D()
+    {
+        for (int x = 0; x < width + 1; x++)
+        {
+            for (int z = 0; z < width + 1; z++)
+            {
+                for (int y = 0; y < height + 1; y++)
+                {
+                    //TODO create areas that can be used for platforms
+                    float thisHeight = (float)height * noise.GetNoise(x, y, z);
                     if (y == 0)
                     {
                         thisHeight = 1;
