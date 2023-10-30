@@ -412,10 +412,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smoothTerrain: 0
   flatShaded: 0
-  _noiseType: 3
+  isRealtime: 1
+  _noiseType: 4
   terrainSurface: 0.2
+  speed: {x: 0.05, y: 0.05, z: 0.05}
+  offset: {x: 0, y: 0, z: 0}
   width: 16
-  height: 32
+  height: 8
   platforms: 3
   platformHeight: 3
   is3D: 1
