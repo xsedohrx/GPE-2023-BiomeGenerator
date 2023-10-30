@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 665959500}
   - component: {fileID: 665959499}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: MarchingCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -410,6 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f9ced7a6f351ca4baadf110375e0934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volumeTest: {fileID: 0}
   smoothTerrain: 0
   flatShaded: 0
   isRealtime: 1

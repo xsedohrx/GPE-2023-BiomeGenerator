@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.VersionControl;
 using UnityEngine;
-
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(MeshFilter)), RequireComponent(typeof(MeshRenderer)), RequireComponent(typeof(MeshCollider))]
 public class MarchingCube : MonoBehaviour
 {
     FastNoiseLite noise = new FastNoiseLite();
-
+    [SerializeField] private Volume volumeTest;
 
     //Marching Cube components
     MeshFilter meshFilter;
