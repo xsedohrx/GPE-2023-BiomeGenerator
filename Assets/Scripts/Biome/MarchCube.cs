@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 
@@ -17,12 +18,14 @@ public class MarchingCube : MonoBehaviour
     [Header("Terrain Properties")]
     //Marching Properties
     public bool smoothTerrain;
-    public bool flatShaded;
+    public bool flatShaded, isRealtime = true;
 
     [SerializeField] private FastNoiseLite.NoiseType _noiseType;
 
     //Density of the terrain
     [SerializeField] private float terrainSurface = 0.5f;
+    
+    [SerializeField] Vector3 speed, offset;
 
     //Amount of cubes to march through
     [SerializeField] private int width = 32;
@@ -32,7 +35,7 @@ public class MarchingCube : MonoBehaviour
     [SerializeField] private int platforms = 3;
     [SerializeField] private int platformHeight = 3;
 
-    public bool is3D;
+    public bool is3D = true;
     [SerializeField, Range(-1,1)]
     float x, y;
 
@@ -61,6 +64,16 @@ public class MarchingCube : MonoBehaviour
         CreateMeshData();
     }
 
+    private void Update()
+    {
+        if (isRealtime)
+        {
+            offset += speed;
+            PopulateTerrainMap3D();
+            CreateMeshData();
+        }
+    }
+
     public void Clear()
     {
         vertices.Clear();
@@ -68,6 +81,7 @@ public class MarchingCube : MonoBehaviour
         terrainMap = new float[width + 1, height + 1, width + 1];
         meshFilter.mesh.Clear();
         meshCollider.sharedMesh = new Mesh();
+       // meshCollider.sharedMesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
     }
 
     public void CreateMeshData()
@@ -98,7 +112,7 @@ public class MarchingCube : MonoBehaviour
                     float thisHeight = (float)height * noise.GetNoise(x, z);
                     if (y == 0)
                     {
-                        //thisHeight = 1;
+                        thisHeight = 1;
                     }
                     terrainMap[x, y, z] = (float)y - thisHeight;
 
@@ -115,13 +129,19 @@ public class MarchingCube : MonoBehaviour
             {
                 for (int y = 0; y < height + 1; y++)
                 {
-                    //TODO create areas that can be used for platforms
-                    float thisHeight = (float)height * noise.GetNoise(x, y, z);
+                    float xCoord = x * terrainSurface + offset.x;
+                    float yCoord = y * terrainSurface + offset.y;
+                    float zCoord = z * terrainSurface + offset.z;
+                    float noiseValue = noise.GetNoise(xCoord, yCoord, zCoord) * (float) height;
                     if (y == 0)
                     {
-                        thisHeight = 1;
+                        noiseValue = 0;
                     }
-                    terrainMap[x, y, z] = (float)y - thisHeight;
+                    else if (y >= height-1 ) {
+                        noiseValue = 1;
+                    
+                    }
+                    terrainMap[x, y, z] = (noiseValue > 0.5) ? 1 : 0 ;
 
                 }
             }

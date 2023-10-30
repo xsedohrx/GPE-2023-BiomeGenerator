@@ -14,16 +14,9 @@ public class MarchCubeEditor : Editor
         if (GUILayout.Button("Generate"))
         {
             var marchCube = target as MarchingCube;
-            if (marchCube.is3D)
-            {
+            if (marchCube.is3D){ marchCube.PopulateTerrainMap3D(); }
+            else{ marchCube.PopulateTerrainMap2D(); }
 
-                marchCube.PopulateTerrainMap3D();
-            }
-            else
-            {
-
-                marchCube.PopulateTerrainMap2D();
-            }
             marchCube.CreateMeshData();
         }
 
@@ -34,7 +27,6 @@ public class MarchCubeEditor : Editor
         }
 
         hLayout.Dispose();
-
         GUI.enabled = false;
     }
 }
