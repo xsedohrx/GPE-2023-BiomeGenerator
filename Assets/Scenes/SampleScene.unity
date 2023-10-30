@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -410,13 +410,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f9ced7a6f351ca4baadf110375e0934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothTerrain: 1
-  flatShaded: 1
-  _noiseType: 3
+  smoothTerrain: 0
+  flatShaded: 0
+  isRealtime: 1
+  _noiseType: 4
   terrainSurface: 0.2
+  speed: {x: 0.05, y: 0.05, z: 0.05}
+  offset: {x: 0, y: 0, z: 0}
   width: 16
   height: 8
-  terrainMaterial: {fileID: 2100000, guid: cc6a4793bc4d9bc4e9a9f6e1b1a94e12, type: 2}
+  platforms: 3
+  platformHeight: 3
+  is3D: 1
+  x: 0.14
+  y: 0
+  terrainMaterial: {fileID: 2100000, guid: 095f6a2a9b6cc6141bd2da07e116a607, type: 2}
 --- !u!64 &665959500
 MeshCollider:
   m_ObjectHideFlags: 0
