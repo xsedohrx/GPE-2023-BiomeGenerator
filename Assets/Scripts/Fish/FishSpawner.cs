@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class FishSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    
+    List<Vector3> spawnPos = new List<Vector3>();
+
+    void SetSpawnPos() { 
+    
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

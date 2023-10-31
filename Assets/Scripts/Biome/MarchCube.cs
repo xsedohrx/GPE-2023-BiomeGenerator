@@ -8,43 +8,34 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter)), RequireComponent(typeof(MeshRenderer)), RequireComponent(typeof(MeshCollider))]
 public class MarchingCube : MonoBehaviour
 {
-    FastNoiseLite noise = new FastNoiseLite();
-
-
     //Marching Cube components
+    float[,,] terrainMap;
     MeshFilter meshFilter;
     MeshCollider meshCollider;
+    FastNoiseLite noise = new FastNoiseLite();
+    List<int> triangles = new List<int>();
+    List<Vector3> vertices = new List<Vector3>();
+
+    [SerializeField,Header("Noise Type"), Tooltip("Select the type of noise you wish to create!")] private FastNoiseLite.NoiseType _noiseType;
 
     [Header("Terrain Properties")]
-    //Marching Properties
-    public bool smoothTerrain;
-    public bool flatShaded, isRealtime = true;
-
-    [SerializeField] private FastNoiseLite.NoiseType _noiseType;
-
+    public bool is3D = true;
+    public bool isRealtime = true ;
+    //Amount of cubes to march through
+    [SerializeField, Tooltip("The size of the Biome")] private int width = 32;
+    [SerializeField] private int height = 8;
     //Density of the terrain
-    [SerializeField] private float terrainSurface = 0.5f;
-    
+    [SerializeField, Range(0,1)] private float terrainSurface = 0.5f;
     [SerializeField] Vector3 speed, offset;
 
-    //Amount of cubes to march through
-    [SerializeField] private int width = 32;
-    [SerializeField] private int height = 8;
+    [Tooltip("Adjust these settings to smoothen terrain and turn realtime update on"), Header("Terrain Smoothing")] 
+    public bool smoothTerrain;
+    public bool flatShaded;    
 
-    [Header("Biome Properties")]
-    [SerializeField] private int platforms = 3;
-    [SerializeField] private int platformHeight = 3;
-
-    public bool is3D = true;
-    [SerializeField, Range(-1,1)]
-    float x, y;
-
-    float[,,] terrainMap;
-
+    [Header("Biome Properties"),Tooltip("Edit Biome properties like platforms, habitats and points of interest")]
     List<Transform> spawnPositions = new List<Transform>();
-    List<Vector3> vertices = new List<Vector3>();
-    List<int> triangles = new List<int>();
-
+    [SerializeField] private int platforms = 3;
+    [SerializeField, Range(0,8)] private float platformHeight = 3;
 
     private void Awake()
     {
@@ -69,7 +60,12 @@ public class MarchingCube : MonoBehaviour
         if (isRealtime)
         {
             offset += speed;
-            PopulateTerrainMap3D();
+            if (is3D)
+                PopulateTerrainMap3D();
+            else
+                PopulateTerrainMap2D();
+
+            
             CreateMeshData();
         }
     }
@@ -100,6 +96,9 @@ public class MarchingCube : MonoBehaviour
         BuildMesh();
     }
 
+    /// <summary>
+    /// 2D Noise too generate terrain
+    /// </summary>
     public void PopulateTerrainMap2D()
     {
         for (int x = 0; x < width + 1; x++)
@@ -141,12 +140,18 @@ public class MarchingCube : MonoBehaviour
                         noiseValue = 1;
                     
                     }
+
+                    if (y == platformHeight)
+                    {
+                        noiseValue = platformHeight;
+                    }
                     terrainMap[x, y, z] = (noiseValue > 0.5) ? 1 : 0 ;
 
                 }
             }
         }
     }
+
 
     /// <summary>
     /// Configure the byte value from the cube float and pass it into the configuration index

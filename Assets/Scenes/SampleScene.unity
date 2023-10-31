@@ -391,6 +391,7 @@ GameObject:
   - component: {fileID: 665959501}
   - component: {fileID: 665959500}
   - component: {fileID: 665959499}
+  - component: {fileID: 665959504}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -410,20 +411,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f9ced7a6f351ca4baadf110375e0934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothTerrain: 0
-  flatShaded: 0
+  _noiseType: 3
+  is3D: 1
   isRealtime: 1
-  _noiseType: 4
-  terrainSurface: 0.2
-  speed: {x: 0.05, y: 0.05, z: 0.05}
-  offset: {x: 0, y: 0, z: 0}
   width: 16
   height: 8
-  platforms: 3
-  platformHeight: 3
-  is3D: 1
-  x: 0.14
-  y: 0
+  terrainSurface: 0.2
+  speed: {x: 0.02, y: 0.02, z: 0.02}
+  offset: {x: 0, y: 0, z: 0}
+  smoothTerrain: 0
+  flatShaded: 0
+  platforms: 1
+  platformHeight: 8
   terrainMaterial: {fileID: 2100000, guid: 095f6a2a9b6cc6141bd2da07e116a607, type: 2}
 --- !u!64 &665959500
 MeshCollider:
@@ -512,6 +511,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &665959504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665959498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bad2b8f4e30551942a4286dfe9026bc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
