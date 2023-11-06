@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.VersionControl;
 using UnityEngine;
-
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(MeshFilter)), RequireComponent(typeof(MeshRenderer)), RequireComponent(typeof(MeshCollider))]
 public class MarchingCube : MonoBehaviour
@@ -15,7 +15,6 @@ public class MarchingCube : MonoBehaviour
     FastNoiseLite noise = new FastNoiseLite();
     List<int> triangles = new List<int>();
     List<Vector3> vertices = new List<Vector3>();
-
     [SerializeField,Header("Noise Type"), Tooltip("Select the type of noise you wish to create!")] private FastNoiseLite.NoiseType _noiseType;
 
     [Header("Terrain Properties")]
@@ -35,8 +34,9 @@ public class MarchingCube : MonoBehaviour
     [Header("Biome Properties"),Tooltip("Edit Biome properties like platforms, habitats and points of interest")]
     List<Transform> spawnPositions = new List<Transform>();
     [SerializeField] private int platforms = 3;
-    [SerializeField, Range(0,8)] private float platformHeight = 3;
+    [SerializeField, Range(0,128)] private float platformHeight = 3;
 
+    
     private void Awake()
     {
         noise.SetFrequency(terrainSurface);
@@ -141,7 +141,7 @@ public class MarchingCube : MonoBehaviour
                     
                     }
 
-                    if (y == platformHeight)
+                    if (y >= platformHeight)
                     {
                         noiseValue = platformHeight;
                     }

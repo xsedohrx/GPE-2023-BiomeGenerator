@@ -1,9 +1,14 @@
+using System;
+using System.Data;
 using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(MarchingCube))]
 public class MarchCubeEditor : Editor
 {
+    // Declare a private IDisposable variable to hold the HorizontalScope.
+    private IDisposable hLayout;
+
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -29,4 +34,10 @@ public class MarchCubeEditor : Editor
         hLayout.Dispose();
         GUI.enabled = false;
     }
+
+    private void OnDisable()
+    {
+        
+    }
+
 }
