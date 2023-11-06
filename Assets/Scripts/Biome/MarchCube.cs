@@ -9,6 +9,7 @@ using UnityEngine.Rendering;
 public class MarchingCube : MonoBehaviour
 {
     //Marching Cube components
+    public string cubeName;
     float[,,] terrainMap;
     MeshFilter meshFilter;
     MeshCollider meshCollider;
@@ -21,11 +22,11 @@ public class MarchingCube : MonoBehaviour
     public bool is3D = true;
     public bool isRealtime = true ;
     //Amount of cubes to march through
-    [SerializeField, Tooltip("The size of the Biome")] private int width = 32;
-    [SerializeField] private int height = 8;
+    [Tooltip("The size of the Biome")] public int width = 32;
+    public int height = 8;
     //Density of the terrain
-    [SerializeField, Range(0,1)] private float terrainSurface = 0.5f;
-    [SerializeField] Vector3 speed, offset;
+    [SerializeField, Range(0,1)] public float terrainSurface = 0.5f;
+    public Vector3 speed, offset;
 
     [Tooltip("Adjust these settings to smoothen terrain and turn realtime update on"), Header("Terrain Smoothing")] 
     public bool smoothTerrain;
@@ -34,7 +35,7 @@ public class MarchingCube : MonoBehaviour
     [Header("Biome Properties"),Tooltip("Edit Biome properties like platforms, habitats and points of interest")]
     List<Transform> spawnPositions = new List<Transform>();
     [SerializeField] private int platforms = 3;
-    [SerializeField, Range(0,128)] private float platformHeight = 3;
+    [Range(0,128)] public float platformHeight = 3;
 
     
     private void Awake()

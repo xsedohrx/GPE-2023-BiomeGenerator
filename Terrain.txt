@@ -1,0 +1,6 @@
+Cube Name: 
+Offset: (0.00, 0.00, 0.00)
+Terrain Surface: 0,185
+Width: 16
+Height: 8
+Platform Height: 4,4
