@@ -22,7 +22,7 @@ public class MarchingCube : MonoBehaviour
 
     [Header("Terrain Properties")]
     public bool is3D = true;
-    public bool isRealtime = true ;
+    public bool IsGenerating = true ;
     //Amount of cubes to march through
     [Tooltip("The size of the Biome")] 
     public int width = 32;
@@ -36,8 +36,9 @@ public class MarchingCube : MonoBehaviour
     public bool flatShaded = true;    
 
     [Header("Biome Properties"),Tooltip("Edit Biome properties like platforms, habitats and points of interest")]
-    List<Transform> spawnPositions = new List<Transform>();
-    [SerializeField] private int platforms = 3;
+    public List<Transform> spawnPositions = new List<Transform>();
+    //[SerializeField] private int platforms = 3;
+    [Range(0,32)] public float terrainScale = 3;
     [Range(0,32)] public float platformHeight = 3;
 
     
@@ -51,32 +52,7 @@ public class MarchingCube : MonoBehaviour
 
     private void Start()
     {
-
-        childObject = transform.GetChild(0);
-        // Find the child object and get its BoxCollider
-        if (childObject != null)
-        {
-            BoxCollider childCollider = childObject.GetComponent<BoxCollider>();
-
-            if (childCollider != null)
-            {
-
-                // Calculate the size of the BoxCollider based on terrain size
-                Vector3 size = new Vector3(width, height, width); // Adjust as needed
-
-                if (childCollider.transform.parent.name == "Terrain")  
-                    childCollider.size = size;
-                else 
-                    childCollider.size = size*1.5f;
-
-
-                childCollider.center = new Vector3(width / 2, height / 2, width / 2);
-
-
-            }
-
-        }
-
+      
         meshFilter = GetComponent<MeshFilter>();
         meshCollider = GetComponent<MeshCollider>();
         transform.tag = "Terrain";
@@ -92,7 +68,7 @@ public class MarchingCube : MonoBehaviour
 
     private void Update()
     {
-        if (isRealtime)
+        if (IsGenerating)
         {
             offset += speed;
             if (is3D)
@@ -324,6 +300,31 @@ public class MarchingCube : MonoBehaviour
 
     void BuildMesh()
     {
+        childObject = transform.GetChild(0);
+        // Find the child object and get its BoxCollider
+        if (childObject != null)
+        {
+            BoxCollider childCollider = childObject.GetComponent<BoxCollider>();
+
+            if (childCollider != null)
+            {
+
+                // Calculate the size of the BoxCollider based on terrain size
+                Vector3 size = new Vector3(width, height, width); // Adjust as needed
+
+                if (childCollider.transform.parent.name == "Terrain")
+                    childCollider.size = size;
+                else
+                    childCollider.size = size * 1.5f;
+
+
+                childCollider.center = size/2;
+
+
+            }
+
+        }
+
         Mesh mesh = new Mesh();
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
@@ -332,6 +333,10 @@ public class MarchingCube : MonoBehaviour
         meshFilter.mesh = mesh;
         meshCollider.sharedMesh = mesh;
         GetComponent<MeshRenderer>().material = terrainMaterial;
+
+        // Example: Adjusting terrain size without changing density
+        float scale = 1.0f + terrainScale; 
+        transform.localScale = new Vector3(scale, scale, scale);
     }
 
     #region ConfigurationTable

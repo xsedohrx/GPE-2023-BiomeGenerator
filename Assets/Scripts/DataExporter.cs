@@ -25,7 +25,7 @@ namespace BiomeData{
                 float terrainSurface = marchingCube.terrainSurface;
                 int width = marchingCube.width;
                 int height = marchingCube.height;
-                float platformHeight = marchingCube.platformHeight;
+                float platformHeight = marchingCube.terrainScale;
                 Vector3 position = marchingCube.transform.position;
                 Quaternion rotation = marchingCube.transform.rotation;
 

@@ -1,9 +1,18 @@
-Cube Name: Caves
+Cube Name: Caverns
+Object Position: (16.93, 3.64, 22.12)
+Object Rotation: (0.00000, 0.00000, 0.00000, 1.00000)
+Offset: (97.64, 95.01, 103.94)
+Terrain Surface: 0,71
+Width: 9
+Height: 4
+Platform Height: 4,2
+
+Cube Name: Caverns
 Object Position: (0.00, 0.00, 0.00)
 Object Rotation: (0.00000, 0.00000, 0.00000, 1.00000)
-Offset: (24.59, 24.59, 24.59)
-Terrain Surface: 0,377
-Width: 64
+Offset: (31.04, 28.41, 37.34)
+Terrain Surface: 0,71
+Width: 32
 Height: 8
-Platform Height: 14,4
+Platform Height: 4,2
 
