@@ -238,7 +238,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 2bb7d3e2bf7fad54bbc560805a3a2f31, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 6cdf5df5938f6ed42a89fc86a92d847d, type: 2}
 --- !u!1 &98140312
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +354,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 2bb7d3e2bf7fad54bbc560805a3a2f31, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 6cdf5df5938f6ed42a89fc86a92d847d, type: 2}
 --- !u!1 &423203081
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,7 +416,8 @@ MonoBehaviour:
   flatShaded: 1
   platforms: 3
   platformHeight: 8
-  terrainMaterial: {fileID: 2100000, guid: c42547ec4d0f67149b6a00a9f217ba98, type: 2}
+  terrainMaterial: {fileID: 2100000, guid: 019574944a7159947a8b8dc1e7027d79, type: 2}
+  childObject: {fileID: 0}
 --- !u!64 &423203084
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -551,6 +552,7 @@ MonoBehaviour:
   platforms: 3
   platformHeight: 8
   terrainMaterial: {fileID: 2100000, guid: c42547ec4d0f67149b6a00a9f217ba98, type: 2}
+  childObject: {fileID: 0}
 --- !u!64 &454408707
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -691,7 +693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IsGlobal: 0
   priority: 0
-  blendDistance: 0
+  blendDistance: 5
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 2bb7d3e2bf7fad54bbc560805a3a2f31, type: 2}
 --- !u!1 &793439066
@@ -763,8 +765,8 @@ MonoBehaviour:
   m_IsGlobal: 0
   priority: 0
   blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 2bb7d3e2bf7fad54bbc560805a3a2f31, type: 2}
+  weight: 0.495
+  sharedProfile: {fileID: 11400000, guid: 41d6f769de237d044ae991f1688acede, type: 2}
 --- !u!1 &802088450
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,9 +972,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IsGlobal: 0
   priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 2bb7d3e2bf7fad54bbc560805a3a2f31, type: 2}
+  blendDistance: 5.91
+  weight: 0.44
+  sharedProfile: {fileID: 11400000, guid: adbfc86d09d80cd449e7bc9a1f58cb45, type: 2}
 --- !u!1 &1280724439
 GameObject:
   m_ObjectHideFlags: 0
@@ -1034,7 +1036,8 @@ MonoBehaviour:
   flatShaded: 1
   platforms: 3
   platformHeight: 16.1
-  terrainMaterial: {fileID: 2100000, guid: c42547ec4d0f67149b6a00a9f217ba98, type: 2}
+  terrainMaterial: {fileID: 2100000, guid: eff1c89078f11394d931616db1e2ff5f, type: 2}
+  childObject: {fileID: 0}
 --- !u!64 &1280724442
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1283,10 +1286,11 @@ MonoBehaviour:
   speed: {x: 0.05, y: 0.05, z: 0.05}
   offset: {x: 3.5499978, y: 3.5499978, z: 3.5499978}
   smoothTerrain: 0
-  flatShaded: 1
+  flatShaded: 0
   platforms: 3
   platformHeight: 9
   terrainMaterial: {fileID: 2100000, guid: c42547ec4d0f67149b6a00a9f217ba98, type: 2}
+  childObject: {fileID: 0}
 --- !u!64 &1364911390
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1456,7 +1460,8 @@ MonoBehaviour:
   flatShaded: 1
   platforms: 3
   platformHeight: 8
-  terrainMaterial: {fileID: 2100000, guid: c42547ec4d0f67149b6a00a9f217ba98, type: 2}
+  terrainMaterial: {fileID: 2100000, guid: 095f6a2a9b6cc6141bd2da07e116a607, type: 2}
+  childObject: {fileID: 0}
 --- !u!64 &2060198551
 MeshCollider:
   m_ObjectHideFlags: 0

@@ -60,10 +60,19 @@ public class MarchingCube : MonoBehaviour
 
             if (childCollider != null)
             {
+
                 // Calculate the size of the BoxCollider based on terrain size
                 Vector3 size = new Vector3(width, height, width); // Adjust as needed
-                childCollider.size = size;
-                childCollider.center = new Vector3(width/2, height/2, width/2);
+
+                if (childCollider.transform.parent.name == "Terrain")  
+                    childCollider.size = size;
+                else 
+                    childCollider.size = size*1.5f;
+
+
+                childCollider.center = new Vector3(width / 2, height / 2, width / 2);
+
+
             }
 
         }
