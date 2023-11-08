@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class FishSpawner : MonoBehaviour
 {
-    
-    List<Vector3> spawnPos = new List<Vector3>();
 
-    void SetSpawnPos() { 
-    
+    [SerializeField] GameObject fishPrefab;
+    Vector3 spawnPosition;
 
+
+    private void OnEnable()
+    {
+        GameObject fish = Instantiate(fishPrefab,spawnPosition, Quaternion.identity);
     }
 
 

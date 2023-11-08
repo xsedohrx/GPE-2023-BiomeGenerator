@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6175049243983994066}
   - component: {fileID: 8108841157858357126}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: MarchingCube
   m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

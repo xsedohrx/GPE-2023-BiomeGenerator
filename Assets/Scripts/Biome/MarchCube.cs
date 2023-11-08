@@ -8,6 +8,7 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(MeshFilter)), RequireComponent(typeof(MeshRenderer)), RequireComponent(typeof(MeshCollider))]
 public class MarchingCube : MonoBehaviour
 {
+    const int numCorners = 8, numEdges = 12;
     //Marching Cube components
     public string cubeName;
     float[,,] terrainMap;
@@ -22,20 +23,21 @@ public class MarchingCube : MonoBehaviour
     public bool is3D = true;
     public bool isRealtime = true ;
     //Amount of cubes to march through
-    [Tooltip("The size of the Biome")] public int width = 32;
+    [Tooltip("The size of the Biome")] 
+    public int width = 32;
     public int height = 8;
     //Density of the terrain
-    [SerializeField, Range(0,1)] public float terrainSurface = 0.5f;
+    [Range(0,1)] public float terrainSurface = 0.5f;
     public Vector3 speed, offset;
 
     [Tooltip("Adjust these settings to smoothen terrain and turn realtime update on"), Header("Terrain Smoothing")] 
-    public bool smoothTerrain;
-    public bool flatShaded;    
+    public bool smoothTerrain = false;
+    public bool flatShaded = true;    
 
     [Header("Biome Properties"),Tooltip("Edit Biome properties like platforms, habitats and points of interest")]
     List<Transform> spawnPositions = new List<Transform>();
     [SerializeField] private int platforms = 3;
-    [Range(0,128)] public float platformHeight = 3;
+    [Range(0,32)] public float platformHeight = 3;
 
     
     private void Awake()
@@ -52,7 +54,11 @@ public class MarchingCube : MonoBehaviour
         transform.tag = "Terrain";
         terrainMap = new float[width + 1, height + 1, width + 1];
 
-        PopulateTerrainMap2D();
+        if (is3D)
+            PopulateTerrainMap3D();
+        else
+            PopulateTerrainMap2D();
+
         CreateMeshData();
     }
 
@@ -144,7 +150,7 @@ public class MarchingCube : MonoBehaviour
 
                     if (y >= platformHeight)
                     {
-                        noiseValue = platformHeight;
+                        noiseValue = 1;
                     }
                     terrainMap[x, y, z] = (noiseValue > 0.5) ? 1 : 0 ;
 
@@ -162,7 +168,7 @@ public class MarchingCube : MonoBehaviour
     int GetCubeConfiguration(float[] cube)
     {
         int configurationIndex = 0;
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < numCorners; i++)
         {
             if (cube[i] > terrainSurface)
                 configurationIndex |= 1 << i;
@@ -249,7 +255,7 @@ public class MarchingCube : MonoBehaviour
 
         vertices.Clear();
         triangles.Clear();
-
+        vertexDictionary.Clear();
     }
 
     float SampleTerrain(Vector3Int point)
@@ -257,20 +263,22 @@ public class MarchingCube : MonoBehaviour
         return terrainMap[point.x, point.y, point.z];
     }
 
+    Dictionary<Vector3, int> vertexDictionary = new Dictionary<Vector3, int>();
     int vertForIndice(Vector3 vert)
     {
-        //Loop through all the vertices currently in the verticies list
-        for (int i = 0; i < vertices.Count; i++)
-        {
-            if (vertices[i] == vert)
-            {
-                return i;
-            }
-        }
 
-        //if we dont find a match, add this vert to the list and return last index
-        vertices.Add(vert);
-        return vertices.Count - 1;
+        if (vertexDictionary.ContainsKey(vert))
+        {
+            return vertexDictionary[vert];
+        }
+        else
+        {
+            // If the vertex is not in the dictionary, add it to the vertices list
+            int newIndex = vertices.Count;
+            vertices.Add(vert);
+            vertexDictionary.Add(vert, newIndex);
+            return newIndex;
+        }
     }
 
     /// <summary>
@@ -298,12 +306,12 @@ public class MarchingCube : MonoBehaviour
         GetComponent<MeshRenderer>().material = terrainMaterial;
     }
 
-    #region Table
+    #region ConfigurationTable
 
     /// <summary>
     /// Corners or the cube
     /// </summary>
-    Vector3Int[] CornerTable = new Vector3Int[8] {
+    Vector3Int[] CornerTable = new Vector3Int[numCorners] {
 
         new Vector3Int(0, 0, 0),
         new Vector3Int(1, 0, 0),
@@ -319,7 +327,7 @@ public class MarchingCube : MonoBehaviour
     /// <summary>
     /// Each one represents an edge of the cube (1 ==> positions on the cube, 2==>
     /// </summary>
-    int[,] EdgeIndexes = new int[12, 2] {
+    int[,] EdgeIndexes = new int[numEdges, 2] {
         {0, 1}, {1, 2}, {3, 2}, {0, 3}, {4, 5}, {5, 6}, {7, 6}, {4, 7}, {0, 4}, {1, 5}, {2, 6} ,{3, 7}
     };
 

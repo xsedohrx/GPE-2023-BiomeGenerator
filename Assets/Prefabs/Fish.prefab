@@ -59,13 +59,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb6fe512c1e2004ab1525c594f4e234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 0
+  minSpeed: 2
   maxSpeed: 5
   minRotationSpeed: 10
   maxRotationSpeed: 40
   timeUntilNextTurn: 0
-  minTurnInterval: 2
-  maxTurnInterval: 6
+  minTurnInterval: 1
+  maxTurnInterval: 4
   currentSpeed: 0
   currentRotationSpeed: 0
   hunger: 100

@@ -569,7 +569,6 @@ GameObject:
   - component: {fileID: 665959500}
   - component: {fileID: 665959499}
   - component: {fileID: 665959504}
-  - component: {fileID: 665959505}
   m_Layer: 0
   m_Name: MarchingCube
   m_TagString: Untagged
@@ -589,19 +588,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f9ced7a6f351ca4baadf110375e0934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubeName: 
+  cubeName: Caverns
   _noiseType: 3
   is3D: 1
   isRealtime: 0
-  width: 16
-  height: 8
-  terrainSurface: 0.185
+  width: 64
+  height: 16
+  terrainSurface: 0.112
   speed: {x: 0.01, y: 0.01, z: 0.01}
-  offset: {x: 0, y: 0, z: 0}
-  smoothTerrain: 1
-  flatShaded: 0
+  offset: {x: 8.150091, y: 8.150091, z: 8.150091}
+  smoothTerrain: 0
+  flatShaded: 1
   platforms: 1
-  platformHeight: 4.4
+  platformHeight: 13.2
   terrainMaterial: {fileID: 2100000, guid: 095f6a2a9b6cc6141bd2da07e116a607, type: 2}
 --- !u!64 &665959500
 MeshCollider:
@@ -703,19 +702,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bad2b8f4e30551942a4286dfe9026bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &665959505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 665959498}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48f573c70a1267c4dbefb0b31305fa5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fileName: Terrain.txt
 --- !u!1 &706075139
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,6 +711,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 706075140}
+  - component: {fileID: 706075141}
   m_Layer: 0
   m_Name: SaveTerrainData
   m_TagString: Untagged
@@ -747,6 +734,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &706075141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706075139}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f573c70a1267c4dbefb0b31305fa5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileName: Hills.txt
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

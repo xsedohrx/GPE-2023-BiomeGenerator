@@ -1,0 +1,9 @@
+Cube Name: Caves
+Object Position: (0.00, 0.00, 0.00)
+Object Rotation: (0.00000, 0.00000, 0.00000, 1.00000)
+Offset: (24.59, 24.59, 24.59)
+Terrain Surface: 0,377
+Width: 64
+Height: 8
+Platform Height: 14,4
+
