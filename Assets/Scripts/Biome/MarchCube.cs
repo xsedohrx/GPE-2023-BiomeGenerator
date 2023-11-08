@@ -14,6 +14,7 @@ public class MarchingCube : MonoBehaviour
     float[,,] terrainMap;
     MeshFilter meshFilter;
     MeshCollider meshCollider;
+
     FastNoiseLite noise = new FastNoiseLite();
     List<int> triangles = new List<int>();
     List<Vector3> vertices = new List<Vector3>();
@@ -46,9 +47,27 @@ public class MarchingCube : MonoBehaviour
     }
 
     public Material terrainMaterial;
+    public Transform childObject;
 
     private void Start()
     {
+
+        childObject = transform.GetChild(0);
+        // Find the child object and get its BoxCollider
+        if (childObject != null)
+        {
+            BoxCollider childCollider = childObject.GetComponent<BoxCollider>();
+
+            if (childCollider != null)
+            {
+                // Calculate the size of the BoxCollider based on terrain size
+                Vector3 size = new Vector3(width, height, width); // Adjust as needed
+                childCollider.size = size;
+                childCollider.center = new Vector3(width/2, height/2, width/2);
+            }
+
+        }
+
         meshFilter = GetComponent<MeshFilter>();
         meshCollider = GetComponent<MeshCollider>();
         transform.tag = "Terrain";
