@@ -1,18 +1,90 @@
-Cube Name: Caverns
-Object Position: (16.93, 3.64, 22.12)
-Object Rotation: (0.00000, 0.00000, 0.00000, 1.00000)
-Offset: (97.64, 95.01, 103.94)
-Terrain Surface: 0,71
-Width: 9
+Cube Name: Caves
+Object Position: (-80.50, -21.70, 183.20)
+Object Rotation: (0.00000, 0.13053, 0.00000, 0.99144)
+Offset: (35.05, 35.05, 35.05)
+Terrain Surface: 0,185
+Width: 16
 Height: 4
-Platform Height: 4,2
+Platform Height: 3
 
-Cube Name: Caverns
-Object Position: (0.00, 0.00, 0.00)
+Cube Name: Terrain4
+Object Position: (-92.50, -21.80, 12.25)
 Object Rotation: (0.00000, 0.00000, 0.00000, 1.00000)
-Offset: (31.04, 28.41, 37.34)
-Terrain Surface: 0,71
-Width: 32
+Offset: (27.57, 27.57, 27.57)
+Terrain Surface: 0,185
+Width: 48
 Height: 8
-Platform Height: 4,2
+Platform Height: 3
+
+Cube Name: Terrain3
+Object Position: (264.80, -201.55, 2.79)
+Object Rotation: (0.00000, 0.00000, 0.00000, 1.00000)
+Offset: (47.57, 37.18, 40.85)
+Terrain Surface: 0,317
+Width: 32
+Height: 32
+Platform Height: 6
+
+Cube Name: Caves
+Object Position: (-3.98, -21.50, 248.77)
+Object Rotation: (0.00000, 0.15104, 0.00000, 0.98853)
+Offset: (169.14, 169.14, 169.14)
+Terrain Surface: 0,747
+Width: 16
+Height: 4
+Platform Height: 3
+
+Cube Name: Terrain3
+Object Position: (96.72, -20.80, 2.79)
+Object Rotation: (0.00000, 0.00000, 0.00000, 1.00000)
+Offset: (40.35, 37.18, 40.85)
+Terrain Surface: 0,185
+Width: 48
+Height: 8
+Platform Height: 3
+
+Cube Name: Terrain1
+Object Position: (95.20, -40.10, 194.15)
+Object Rotation: (0.00000, 0.00000, 0.00000, 1.00000)
+Offset: (91.15, 84.95, 87.89)
+Terrain Surface: 0,274
+Width: 64
+Height: 8
+Platform Height: 5,8
+
+Cube Name: Terrain1
+Object Position: (-82.20, -15.40, 352.40)
+Object Rotation: (0.00000, 0.00000, 0.00000, 1.00000)
+Offset: (601.83, 595.63, 598.57)
+Terrain Surface: 0,445
+Width: 4
+Height: 2
+Platform Height: 6,1
+
+Cube Name: Caves
+Object Position: (-7.10, -19.50, 154.30)
+Object Rotation: (0.00000, 0.15104, 0.00000, 0.98853)
+Offset: (168.10, 168.10, 168.10)
+Terrain Surface: 0,747
+Width: 16
+Height: 4
+Platform Height: 1,9
+
+Cube Name: Terrain2
+Object Position: (-96.50, -21.80, 199.50)
+Object Rotation: (0.00000, 0.00000, 0.00000, 1.00000)
+Offset: (27.80, 27.80, 27.80)
+Terrain Surface: 0,185
+Width: 48
+Height: 8
+Platform Height: 3
+
+Cube Name: Caves
+Object Position: (193.70, -22.20, 128.50)
+Object Rotation: (0.00000, -0.23875, 0.00000, 0.97108)
+Offset: (170.43, 170.43, 170.43)
+Terrain Surface: 0,747
+Width: 16
+Height: 4
+Platform Height: 2,2
 

@@ -38,8 +38,8 @@ public class MarchingCube : MonoBehaviour
     [Header("Biome Properties"),Tooltip("Edit Biome properties like platforms, habitats and points of interest")]
     public List<Transform> spawnPositions = new List<Transform>();
     //[SerializeField] private int platforms = 3;
-    [Range(0,32)] public float terrainScale = 3;
-    [Range(0,32)] public float platformHeight = 3;
+    [Range(0,64)] public float terrainScale = 3;
+    [Range(0,64)] public float platformHeight = 3;
 
     
     private void Awake()
